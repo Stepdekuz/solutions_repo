@@ -172,8 +172,69 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p><strong>merhaba</strong>
-<strong>er</strong></p>
+<h1 id="projectile-motion-analysis">Projectile Motion Analysis</h1>
+<p>import numpy as np
+import matplotlib.pyplot as plt</p>
+<h1 id="constants">Constants</h1>
+<p>g = 9.81  # gravitational acceleration (m/s^2)</p>
+<h1 id="function-to-calculate-range-of-projectile">Function to calculate range of projectile</h1>
+<p>def calculate_range(v0, theta_deg):
+    theta_rad = np.radians(theta_deg)
+    return (v0**2 * np.sin(2 * theta_rad)) / g</p>
+<h1 id="generate-range-vs-angle-plot">Generate range vs angle plot</h1>
+<p>def plot_range_vs_angle(v0_values):
+    angles = np.linspace(0, 90, 500)
+    plt.figure(figsize=(10, 6))</p>
+<pre><code>for v0 in v0_values:
+    ranges = calculate_range(v0, angles)
+    plt.plot(angles, ranges, label=f'v0 = {v0} m/s')
+
+plt.title('Range vs Angle of Projection')
+plt.xlabel('Angle (degrees)')
+plt.ylabel('Range (m)')
+plt.legend()
+plt.grid(True)
+plt.show()
+</code></pre>
+<h1 id="example-usage">Example usage</h1>
+<p>v0_samples = [10, 20, 30]  # initial velocities in m/s
+plot_range_vs_angle(v0_samples)</p>
+<h1 id="theoretical-analysis-description-markdown-style">Theoretical Analysis Description (Markdown style)</h1>
+<p>"""</p>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<p>The motion of a projectile launched with initial velocity <code>v0</code> at an angle <code>theta</code> to the horizontal is governed by Newton's laws.</p>
+<p>Decomposing the motion:
+- Horizontal: x(t) = v0 * cos(theta) * t
+- Vertical: y(t) = v0 * sin(theta) * t - (1/2) * g * t^2</p>
+<p>Solving for time of flight T (when y = 0):
+T = 2 * v0 * sin(theta) / g</p>
+<p>Range R:
+R = v0 * cos(theta) * T = (v0^2 * sin(2 * theta)) / g</p>
+<p>This formula assumes flat ground and no air resistance.</p>
+<h2 id="analysis-of-range">Analysis of Range</h2>
+<ul>
+<li>The range is maximized at 45° for given <code>v0</code> and constant <code>g</code>.</li>
+<li>Increasing <code>v0</code> increases the range quadratically.</li>
+<li>On different planets (different <code>g</code>), the trajectory varies accordingly.</li>
+</ul>
+<h2 id="practical-applications">Practical Applications</h2>
+<ul>
+<li>Sports: optimizing angles for long throws or jumps.</li>
+<li>Military: artillery range prediction.</li>
+<li>Space: analyzing launch trajectories.</li>
+</ul>
+<h2 id="limitations-extensions">Limitations &amp; Extensions</h2>
+<ul>
+<li>Ignores air resistance: can be modeled with differential equations including drag force.</li>
+<li>Assumes level ground: terrain elevation changes require numerical solutions.</li>
+</ul>
+<h2 id="future-improvements">Future Improvements</h2>
+<ul>
+<li>Include wind and drag.</li>
+<li>Model projectile launched from varying heights.</li>
+<li>Use Runge-Kutta methods for precise trajectory paths.
+"""</li>
+</ul>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
