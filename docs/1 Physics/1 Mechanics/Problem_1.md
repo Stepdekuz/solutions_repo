@@ -296,6 +296,8 @@ These assumptions simplify analysis but *break down* in most physical scenarios.
 
 ---
 
+![alt text](image-8.png)
+
 ### 3.3.2 Realistic Factors Affecting Trajectory
 
 | Factor                | Effect on Motion                                  |
@@ -307,6 +309,8 @@ These assumptions simplify analysis but *break down* in most physical scenarios.
 | Projectile shape/spin | Introduces lift forces (e.g., Magnus effect)      |
 
 ---
+
+[link](https://colab.research.google.com/drive/1FnrAgjaUZVid3GkKYB2NrMwgeK-wHLLF?usp=sharing)
 
 ## 3.4 Summary
 
@@ -327,7 +331,7 @@ import matplotlib.pyplot as plt
 
 # Constants
 gravity = 9.81  # m/s²
-angles = np.linspace(10, 80, 8)  # launch angles for trajectory plot
+angles = np.linspace(0, 90, 18)  # launch angles for trajectory plot
 velocities = [10, 20, 30]        # m/s for range vs angle plot
 
 # --- Plot 1: Range vs Angle for different velocities ---
