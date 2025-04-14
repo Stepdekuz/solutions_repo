@@ -1,6 +1,6 @@
 # PROBLEM 2
 
-# 📘 1. Theoretical Foundation
+# 📘 2. Theoretical Foundation
 
 ## 1.1 Governing Equation of a Forced Damped Pendulum
 
