@@ -535,143 +535,123 @@ t_n = nT, \quad T = \frac{2\pi}{\omega}, \quad n \in \mathbb{N}
 <li><code>bokeh</code></li>
 </ul>
 <p>We can build interactive sliders for parameters like <span class="arithmatex">\(\gamma\)</span>, <span class="arithmatex">\(A\)</span>, and <span class="arithmatex">\(\omega\)</span> to dynamically observe how system behavior evolves in real time.</p>
-<pre><code class="language-python"># Example (Jupyter):
-import ipywidgets as widgets
-from IPython.display import display
-
-gamma_slider = widgets.FloatSlider(value=0.2, min=0.0, max=1.0, step=0.01, description='Damping γ')
+<h1 id="example-jupyter">Example (Jupyter):</h1>
+<p>import ipywidgets as widgets
+from IPython.display import display</p>
+<p>gamma_slider = widgets.FloatSlider(value=0.2, min=0.0, max=1.0, step=0.01, description='Damping γ')
 A_slider = widgets.FloatSlider(value=1.2, min=0.0, max=2.0, step=0.05, description='Amplitude A')
-omega_slider = widgets.FloatSlider(value=1.5, min=0.5, max=2.5, step=0.05, description='Frequency ω')
-
-display(gamma_slider, A_slider, omega_slider)
-
-# 📦 5. Deliverables
-
-This section describes the expected outputs of the investigation into the forced damped pendulum, integrating theoretical, computational, and interpretive components.
-
----
-
-## 5.1 Markdown or Jupyter Notebook Document
-
-The final submission will include a structured document (in `.md` or `.ipynb` format) containing:
-
-### 📌 Code Implementations
-
-- Numerical solution of the second-order ODE:
-
-  $$
+omega_slider = widgets.FloatSlider(value=1.5, min=0.5, max=2.5, step=0.05, description='Frequency ω')</p>
+<p>display(gamma_slider, A_slider, omega_slider)</p>
+<h1 id="5-deliverables">📦 5. Deliverables</h1>
+<p>This section describes the expected outputs of the investigation into the forced damped pendulum, integrating theoretical, computational, and interpretive components.</p>
+<hr/>
+<h2 id="51-markdown-or-jupyter-notebook-document">5.1 Markdown or Jupyter Notebook Document</h2>
+<p>The final submission will include a structured document (in <code>.md</code> or <code>.ipynb</code> format) containing:</p>
+<h3 id="code-implementations">📌 Code Implementations</h3>
+<ul>
+<li>Numerical solution of the second-order ODE:</li>
+</ul>
+<p>$$
   \frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin(\theta) = A \cos(\omega t)
-  $$
-
-- Reformulation into first-order system:
-
-  $$
+  $$</p>
+<ul>
+<li>Reformulation into first-order system:</li>
+</ul>
+<p>$$
   \begin{cases}
-  \frac{d\theta_1}{dt} = \theta_2 \\
+  \frac{d\theta_1}{dt} = \theta_2 \
   \frac{d\theta_2}{dt} = -\gamma \theta_2 - \omega_0^2 \sin(\theta_1) + A \cos(\omega t)
   \end{cases}
-  $$
-
-- Implementation via Runge-Kutta or `solve_ivp`
-
----
-
-### 📊 Plots and Diagrams
-
-- **Time series** of $\theta(t)$ and $\dot{\theta}(t)$
-- **Phase portraits** in $(\theta, \dot{\theta})$ space
-- **Poincaré sections**: $\theta(t_n), \dot{\theta}(t_n)$ with $t_n = nT$
-- **Bifurcation diagrams** as parameters (e.g., $A$) vary
-
----
-
-### 📚 Explanations and Analysis
-
-- Step-by-step derivations
-- Interpretations of the dynamical behavior
-- Visual descriptions of transitions from order to chaos
-
----
-
-## 5.2 Written Explanation
-
-The document will include:
-
-### ✍️ Theoretical Derivations
-
-- Linearized case using $\sin(\theta) \approx \theta$ for small $\theta$
-- Analytical resonance condition: $\omega = \omega_0$ (for low damping)
-- Energy exchange mechanisms
-
-### 🔬 Observed Behaviors
-
-- Damped oscillations and equilibrium
-- Resonance and amplitude growth
-- Quasiperiodic and chaotic regimes
-
-### 🌍 Real-World Applications
-
-- Bridge and building oscillations
-- Energy harvesting through mechanical resonance
-- Leg dynamics in locomotion (biomechanics)
-- RLC circuits and analogies to electrical engineering
-
----
-
-## 5.3 Model Limitations
-
-The basic model of a forced damped pendulum assumes:
-
-### ⚠️ Small-Angle Approximation
-
-- $\sin(\theta) \approx \theta$ is valid only for $\theta \ll 1$
-- Neglects nonlinear effects at large angles
-
-### 🧮 Neglect of Nonlinear Damping
-
-- Real systems often exhibit velocity-dependent (quadratic) or dry friction damping, e.g.:
-
-  $$
+  $$</p>
+<ul>
+<li>Implementation via Runge-Kutta or <code>solve_ivp</code></li>
+</ul>
+<hr/>
+<h3 id="plots-and-diagrams">📊 Plots and Diagrams</h3>
+<ul>
+<li><strong>Time series</strong> of <span class="arithmatex">\(\theta(t)\)</span> and <span class="arithmatex">\(\dot{\theta}(t)\)</span></li>
+<li><strong>Phase portraits</strong> in <span class="arithmatex">\((\theta, \dot{\theta})\)</span> space</li>
+<li><strong>Poincaré sections</strong>: <span class="arithmatex">\(\theta(t_n), \dot{\theta}(t_n)\)</span> with <span class="arithmatex">\(t_n = nT\)</span></li>
+<li><strong>Bifurcation diagrams</strong> as parameters (e.g., <span class="arithmatex">\(A\)</span>) vary</li>
+</ul>
+<hr/>
+<h3 id="explanations-and-analysis">📚 Explanations and Analysis</h3>
+<ul>
+<li>Step-by-step derivations</li>
+<li>Interpretations of the dynamical behavior</li>
+<li>Visual descriptions of transitions from order to chaos</li>
+</ul>
+<hr/>
+<h2 id="52-written-explanation">5.2 Written Explanation</h2>
+<p>The document will include:</p>
+<h3 id="theoretical-derivations">✍️ Theoretical Derivations</h3>
+<ul>
+<li>Linearized case using <span class="arithmatex">\(\sin(\theta) \approx \theta\)</span> for small <span class="arithmatex">\(\theta\)</span></li>
+<li>Analytical resonance condition: <span class="arithmatex">\(\omega = \omega_0\)</span> (for low damping)</li>
+<li>Energy exchange mechanisms</li>
+</ul>
+<h3 id="observed-behaviors">🔬 Observed Behaviors</h3>
+<ul>
+<li>Damped oscillations and equilibrium</li>
+<li>Resonance and amplitude growth</li>
+<li>Quasiperiodic and chaotic regimes</li>
+</ul>
+<h3 id="real-world-applications">🌍 Real-World Applications</h3>
+<ul>
+<li>Bridge and building oscillations</li>
+<li>Energy harvesting through mechanical resonance</li>
+<li>Leg dynamics in locomotion (biomechanics)</li>
+<li>RLC circuits and analogies to electrical engineering</li>
+</ul>
+<hr/>
+<h2 id="53-model-limitations">5.3 Model Limitations</h2>
+<p>The basic model of a forced damped pendulum assumes:</p>
+<h3 id="small-angle-approximation">⚠️ Small-Angle Approximation</h3>
+<ul>
+<li><span class="arithmatex">\(\sin(\theta) \approx \theta\)</span> is valid only for <span class="arithmatex">\(\theta \ll 1\)</span></li>
+<li>Neglects nonlinear effects at large angles</li>
+</ul>
+<h3 id="neglect-of-nonlinear-damping">🧮 Neglect of Nonlinear Damping</h3>
+<ul>
+<li>Real systems often exhibit velocity-dependent (quadratic) or dry friction damping, e.g.:</li>
+</ul>
+<p>$$
   F_{\text{damping}} = -\gamma \dot{\theta} - \beta \dot{\theta}^2
-  $$
-
-### ⏳ Periodic Forcing Assumption
-
-- Real-world forces may be stochastic or aperiodic, leading to different dynamics
-
----
-
-## 5.4 Proposed Extensions / Future Work
-
-To enhance realism and complexity, we can investigate:
-
-### 🔁 Nonlinear Damping
-
-- Extend the model to include higher-order damping terms
-- Investigate the impact on phase portraits and stability
-
-### 🎲 Stochastic Driving Forces
-
-- Replace $A \cos(\omega t)$ with a noisy or random driving signal
-- Explore statistical properties and stochastic resonance
-
-### 🔗 Coupled Pendulums
-
-- Study systems of coupled pendulums:
-
-  $$
+  $$</p>
+<h3 id="periodic-forcing-assumption">⏳ Periodic Forcing Assumption</h3>
+<ul>
+<li>Real-world forces may be stochastic or aperiodic, leading to different dynamics</li>
+</ul>
+<hr/>
+<h2 id="54-proposed-extensions-future-work">5.4 Proposed Extensions / Future Work</h2>
+<p>To enhance realism and complexity, we can investigate:</p>
+<h3 id="nonlinear-damping">🔁 Nonlinear Damping</h3>
+<ul>
+<li>Extend the model to include higher-order damping terms</li>
+<li>Investigate the impact on phase portraits and stability</li>
+</ul>
+<h3 id="stochastic-driving-forces">🎲 Stochastic Driving Forces</h3>
+<ul>
+<li>Replace <span class="arithmatex">\(A \cos(\omega t)\)</span> with a noisy or random driving signal</li>
+<li>Explore statistical properties and stochastic resonance</li>
+</ul>
+<h3 id="coupled-pendulums">🔗 Coupled Pendulums</h3>
+<ul>
+<li>Study systems of coupled pendulums:</li>
+</ul>
+<p>$$
   \begin{aligned}
-  \frac{d^2\theta_1}{dt^2} + \gamma \frac{d\theta_1}{dt} + \omega_0^2 \sin(\theta_1) &amp;= \kappa (\theta_2 - \theta_1) + A \cos(\omega t) \\
+  \frac{d^2\theta_1}{dt^2} + \gamma \frac{d\theta_1}{dt} + \omega_0^2 \sin(\theta_1) &amp;= \kappa (\theta_2 - \theta_1) + A \cos(\omega t) \
   \frac{d^2\theta_2}{dt^2} + \gamma \frac{d\theta_2}{dt} + \omega_0^2 \sin(\theta_2) &amp;= \kappa (\theta_1 - \theta_2)
   \end{aligned}
-  $$
-
-- Observe synchronization, energy transfer, and emergent behaviors
-
----
-
-&gt; 📘 **Summary:** These deliverables provide a comprehensive exploration of the forced damped pendulum from theory to simulation, enabling insights into complex dynamical systems applicable in both science and engineering domains.
-</code></pre>
+  $$</p>
+<ul>
+<li>Observe synchronization, energy transfer, and emergent behaviors</li>
+</ul>
+<hr/>
+<blockquote>
+<p>📘 <strong>Summary:</strong> These deliverables provide a comprehensive exploration of the forced damped pendulum from theory to simulation, enabling insights into complex dynamical systems applicable in both science and engineering domains.</p>
+</blockquote>
 <p><img alt="alt text" src="../image-1.png"/> <img alt="alt text" src="../image-2.png"/></p>
 <p><a href="https://colab.research.google.com/drive/1isqqj6LBYxiETsENyTc2C_E5p2HZxAba?usp=sharing">link</a></p>
 </div>
