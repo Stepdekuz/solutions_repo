@@ -298,6 +298,8 @@ These assumptions simplify analysis but *break down* in most physical scenarios.
 
 ![alt text](image-8.png)
 
+[link](https://colab.research.google.com/drive/1FnrAgjaUZVid3GkKYB2NrMwgeK-wHLLF?usp=sharing)
+
 ### 3.3.2 Realistic Factors Affecting Trajectory
 
 | Factor                | Effect on Motion                                  |
@@ -309,9 +311,6 @@ These assumptions simplify analysis but *break down* in most physical scenarios.
 | Projectile shape/spin | Introduces lift forces (e.g., Magnus effect)      |
 
 ---
-
-[link](https://colab.research.google.com/drive/1FnrAgjaUZVid3GkKYB2NrMwgeK-wHLLF?usp=sharing)
-
 ## 3.4 Summary
 
 The classical model of projectile motion serves as a *first approximation* for real systems. However, for accurate prediction and control, especially in sports, aerospace, or engineering, *extended models* incorporating environmental and mechanical factors are necessary.
