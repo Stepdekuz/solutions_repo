@@ -485,7 +485,7 @@ Using libraries like:
 
 We can build interactive sliders for parameters like $\gamma$, $A$, and $\omega$ to dynamically observe how system behavior evolves in real time.
 
-```python
+
 # Example (Jupyter):
 import ipywidgets as widgets
 from IPython.display import display
@@ -622,7 +622,7 @@ To enhance realism and complexity, we can investigate:
 ---
 
 > 📘 **Summary:** These deliverables provide a comprehensive exploration of the forced damped pendulum from theory to simulation, enabling insights into complex dynamical systems applicable in both science and engineering domains.
-```
+
 ![alt text](image-1.png) ![alt text](image-2.png)
 
 [link](https://colab.research.google.com/drive/1isqqj6LBYxiETsENyTc2C_E5p2HZxAba?usp=sharing)
