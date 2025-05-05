@@ -30,7 +30,7 @@ This leads to the simplified equation:
 
 $$\ddot{\theta}+\gamma\dot{\theta}+\omega_0^2\sin\theta=f\cos(\omega t)$$
 
-//////////////////////////
+
 ## 2️⃣ Approximate Solutions for Small-Angle Oscillations 🔬
 
 For small angles ($\theta\approx\sin\theta$), we can linearize the equation:
