@@ -1,4 +1,4 @@
-# Problem 2
+# Problem 1.2
 
 # Escape Velocities and Cosmic Velocities
 
@@ -451,4 +451,81 @@ ax.grid(True, axis='y', linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 ```
+### 🌍 Velocity vs. Planet Mass and Radius
 
+We will create two plots to investigate how the cosmic velocities vary with the **planet's mass** and **radius**. 
+
+#### 1. **Velocity vs. Planet Mass**
+
+We will create two plots to investigate how the cosmic velocities vary with the
+![alt text](image-11.png)
+![alt text](image-13.png)
+
+### 📈 Final Thoughts
+
+- The bar charts and line plots offer a comparative view of **cosmic velocities** across different planets.
+---
+
+## 5. Application & Discussion
+
+### 🚀 1. Importance of Each Cosmic Velocity in Real-World Space Missions
+
+The concept of **cosmic velocities** plays a crucial role in modern space exploration. Understanding these velocities is essential for designing spacecraft and planning interplanetary or interstellar missions. Here we explore the significance of each cosmic velocity:
+
+#### 1.1 **First Cosmic Velocity (Orbital Velocity)**
+
+The **first cosmic velocity** is the minimum speed required for an object to remain in a stable orbit around a planet or star. 
+
+- **Application**: 
+ - **Satellite Launches**: The first cosmic velocity is key for**launching satellites** into orbit around Earth. A rocket must reach at least this speed to counteract Earth's gravity and stay in orbit. 
+ - **Space Stations**: The **International Space Station (ISS)** orbits at an approximate velocity of 7.66 km/s, which is just slightly above Earth's first cosmic velocity.
+
+- **Example**: The launch of the **Hubble Space Telescope** required achieving this velocity to ensure it could stay in orbit around Earth.
+
+
+#### 1.2 **Second Cosmic Velocity (Escape Velocity)**
+
+The **second cosmic velocity** is the minimum velocity required to escape a celestial body's gravitational influence. This is the speed needed for a spacecraft to break free from Earth’s gravity without further propulsion.
+
+- **Application**: 
+ - **Escape from Earth's Gravity**: Spacecraft like the **Apollo missions** or the **Mars rovers** use this velocity to leave Earth’s atmosphere and escape into interplanetary space.
+ - **Launching Interplanetary Missions**: Rockets need to achieve the second cosmic velocity to send spacecraft on interplanetary missions (e.g., to Mars or Jupiter).
+
+- **Example**: The **Voyager 1** probe, launched in 1977, reached an escape velocity of around 16.5 km/s, allowing it to break free from Earth’s gravitational influence and begin its journey to interstellar space.
+
+#### 1.3 **Third Cosmic Velocity (Solar System Escape Velocity)**
+
+The **third cosmic velocity** is the velocity needed to escape not just a planet, but the **entire solar system**, including escaping the Sun’s gravity.
+
+- **Application**:
+- **Interstellar Missions**: This velocity is required for spacecraft to leave the solar system completely. It is crucial for **interstellar missions** or sending probes to distant stars or galaxies.
+- **Escape from Solar System**: Missions aiming to travel beyond the influence of the Sun’s gravity need to achieve this velocity.
+
+- **Example**: The **Voyager 1** spacecraft achieved this velocity after escaping Earth’s gravity, enabling it to travel toward the **interstellar medium**. Currently, it is the farthest human-made object from Earth.
+
+---
+
+### 🌌 2. Relating Cosmic Velocities to Historical and Planned Space Missions
+
+#### 2.1 **Voyager Missions (Voyager 1 & 2)**
+
+- **Voyager 1**, launched in 1977, and **Voyager 2**, launched in 1977 as well, are key examples of space probes that have used the second and third cosmic velocities to escape Earth’s gravity and the Sun's gravitational pull.
+- Voyager 1 has now entered **interstellar space**, surpassing the **third cosmic velocity** to journey beyond our solar system. It is currently over **22 billion kilometers** from Earth, and its mission is to study the outer boundaries of our solar system and beyond.
+
+#### 2.2 **Artemis Program**
+
+- NASA’s **Artemis program**, planned for the coming years, aims to send humans back to the Moon and eventually to Mars. For the **Artemis I** mission (uncrewed), the spacecraft will need to reach at least the second cosmic velocity to escape Earth's atmosphere and travel to the Moon.
+- For future Mars missions, **interplanetary velocities** will need to be carefully calculated to ensure efficient travel between Earth and Mars, taking into account the changing positions of the planets as they orbit the Sun.
+
+#### 2.3 **Mars Rover Missions**
+
+- NASA's **Mars rovers**, such as **Curiosity** and **Perseverance**, need to overcome Earth's gravity (second cosmic velocity) to reach Mars, and then use orbital velocities to safely enter Mars’ atmosphere for landing. 
+- Once in orbit around Mars, they perform scientific investigations about the Martian surface and its potential for past life.
+
+---
+
+### 🌠 3. Conclusion
+
+The understanding and application of the **first**, **second**, and **third cosmic velocities** are fundamental for planning space missions, from launching satellites into Earth orbit to sending probes into interstellar space. These velocities help scientists and engineers design spacecraft that can successfully complete their missions and overcome the gravitational challenges posed by celestial bodies.
+
+Space exploration will continue to rely on these principles to push the boundaries of our solar system and beyond, and understanding them is key to missions like **Voyager**, **Artemis**, and future interstellar travel.
