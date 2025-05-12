@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../../img/favicon.ico" rel="shortcut icon"/>
+<title>Problem 3 - Physics and Mathematics</title>
+<link href="../../../css/theme.css" rel="stylesheet"/>
+<link href="../../../css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "Problem 3";
+        var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_1.3.md";
+        var mkdocs_page_url = null;
+      </script>
+<!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="wy-body-for-nav" role="document">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../.."> Physics and Mathematics
+        </a><div role="search">
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
+</div>
+</div>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../..">Introduction</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">1 Physics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal">1 Mechanics</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_1/">1. Theoretical Foundation: Equations of Projectile Motion</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../1%20Mechanics/Problem_2/">Problem 2</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal current">2 Gravity</a>
+<ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Problem_1.1/">Problem 1.1</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Problem_1.2/">Problem 1.2</a>
+</li>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3</a>
+<ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#newtons-law-of-gravitation">Newton’s Law of Gravitation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#keplers-laws-of-planetary-motion">Kepler’s Laws of Planetary Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#classification-of-possible-trajectories">Classification of Possible Trajectories</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#conditions-for-orbital-insertion-reentry-or-escape">Conditions for Orbital Insertion, Reentry, or Escape</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#this-theoretical-background-lays-the-foundation-for-numerical-simulations-of-payload-trajectories">This theoretical background lays the foundation for numerical simulations of payload trajectories.</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-formulation">Mathematical Formulation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#equations-of-motion-for-a-payload-under-earths-gravity">Equations of Motion for a Payload under Earth's Gravity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#consideration-of-initial-velocity-altitude-and-direction">Consideration of Initial Velocity, Altitude, and Direction</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#criteria-for-different-trajectories">Criteria for Different Trajectories</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#this-mathematical-formulation-establishes-the-foundation-for-numerical-simulations-of-payload-motion">This mathematical formulation establishes the foundation for numerical simulations of payload motion.</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-simulation">Numerical Simulation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#implement-a-python-script-to-solve-the-equations-of-motion">Implement a Python Script to Solve the Equations of Motion</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#use-numerical-methods-eg-runge-kutta-for-trajectory-calculations">Use Numerical Methods (e.g., Runge-Kutta) for Trajectory Calculations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#account-for-different-initial-conditions">Account for Different Initial Conditions</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#python-implementation">Python Implementation</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#visualization-analysis">Visualization &amp; Analysis</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#generate-plots-for-various-payload-trajectories">Generate Plots for Various Payload Trajectories</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#time-evolution-of-position-and-velocity">Time Evolution of Position and Velocity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#phase-space-diagrams">Phase Space Diagrams</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#orbit-visualizations">Orbit Visualizations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-analysis">Additional Analysis</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#real-world-applications">Real-World Applications</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#relevance-to-space-missions-and-satellite-deployment">Relevance to Space Missions and Satellite Deployment</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#reentry-strategies">Reentry Strategies</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#reentry-strategies_1">Reentry Strategies</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">3 Waves</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../3%20Waves/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">4 Electromagnetism</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../4%20Electromagnetism/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">5 Circuits</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../5%20Circuits/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">6 Statistics</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_1/">Problem 1</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../6%20Statistics/Problem_2/">Problem 2</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">7 Measurements</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../7%20Measurements/Problem_1/">Problem 1</a>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">2 Mathematics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/1%20Linear_algebra/">Linear Algebra</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/2%20Analytic_geometry/">Analytic geometry</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../2%20Mathematics/3%20Calculus/">Calculus</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">3 Discret Mathematics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal">1 Set Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_02%20Set_Theory/">Set Theory</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_03%20Relations/">Relations</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/1%20Set%20Theory%20and%20.../_04%20Functions/">Functions</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">2 Number Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/2%20Number%20Theory%20and%20.../_05%20Combinatorics/">Combinatorics</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/2%20Number%20Theory%20and%20.../_08%20Number_Theory/">Number Theory</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">3 Recurrence and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_06%20Sequences_and_Series/">Sequences and Series</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_07%20Induction/">Induction</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/3%20Recurrence%20and%20.../_09%20Recurrence/">Recurrence</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">4 Graph Theory and ...</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/4%20Graph%20Theory%20and%20.../_10%20Graph_Theory/">Graph Theory</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal">5 Logic</a>
+<ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../3%20Discret_Mathematics/5%20Logic/_01%20Logic/">Logic</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../..">Physics and Mathematics</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
+<li class="breadcrumb-item">1 Physics</li>
+<li class="breadcrumb-item">2 Gravity</li>
+<li class="breadcrumb-item active">Problem 3</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h1 id="problem-3">Problem 3</h1>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
+<h3 id="newtons-law-of-gravitation">Newton’s Law of Gravitation</h3>
+<ul>
+<li>Newton's Law of Universal Gravitation states that any two masses in the universe attract each other with a force given by:</li>
+</ul>
+<div class="arithmatex">\[F=G\frac{m_1m_2}{r^2}\]</div>
+<p>where:
+- <span class="arithmatex">\(F\)</span> is the gravitational force,</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(G\)</span> is the gravitational constant (<span class="arithmatex">\(6.674\times10^{-11}\)</span> m²/kg²)</p>
+</li>
+<li>
+<p><span class="arithmatex">\(m_1,m_2\)</span> are the masses of the two objects,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(r\)</span> is the distance between the objects.</p>
+</li>
+<li>
+<p>For a payload near Earth, the force simplifies to:</p>
+</li>
+</ul>
+<div class="arithmatex">\[F=G\frac{M_Em}{r^2}\]</div>
+<p>where <span class="arithmatex">\(M_E\)</span> is Earth's mass and <span class="arithmatex">\(r\)</span> is the distance from Earth's center.</p>
+<ul>
+<li>The acceleration due to gravity is:</li>
+</ul>
+<div class="arithmatex">\[g=\frac{GM_E}{r^2}\]</div>
+<p>which varies with altitude.</p>
+<h3 id="keplers-laws-of-planetary-motion">Kepler’s Laws of Planetary Motion</h3>
+<ol>
+<li>
+<p><strong>First Law (Elliptical Orbits)</strong>: Planets move in ellipses with the Sun at one focus. Similarly, a payload follows an elliptical, parabolic, or hyperbolic path based on its initial velocity.</p>
+</li>
+<li>
+<p><strong>Second Law (Equal Areas in Equal Time)</strong>: The line joining a planet and the Sun sweeps equal areas in equal time. This implies that an object moves faster when closer to Earth.</p>
+</li>
+<li>
+<p><strong>Third Law (Orbital Period Relation)</strong>: The square of a planet’s orbital period is proportional to the cube of the semi-major axis:</p>
+</li>
+</ol>
+<div class="arithmatex">\[T^2\propto a^3\]</div>
+<p>This helps in predicting orbital parameters.</p>
+<h3 id="classification-of-possible-trajectories">Classification of Possible Trajectories</h3>
+<ul>
+<li>The motion of a payload depends on its total energy:</li>
+</ul>
+<div class="arithmatex">\[E=\frac{1}{2}mv^2-\frac{GM_Em}{r}\]</div>
+<ul>
+<li>
+<p>If <span class="arithmatex">\(E&lt;0\)</span> → <strong>Elliptical orbit</strong> (Bound motion)</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(E=0\)</span> → <strong>Parabolic trajectory</strong> (Escape condition)</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(E&gt;0\)</span> → <strong>Hyperbolic trajectory</strong> (Unbound motion)</p>
+</li>
+<li>
+<p>The escape velocity is given by:</p>
+</li>
+</ul>
+<div class="arithmatex">\[v_{esc}=\sqrt{\frac{2GM_E}{r}}\]</div>
+<h3 id="conditions-for-orbital-insertion-reentry-or-escape">Conditions for Orbital Insertion, Reentry, or Escape</h3>
+<ul>
+<li><strong>Orbital Insertion</strong>:</li>
+<li>Requires achieving a velocity that results in a stable bound orbit.</li>
+<li>For a circular orbit at altitude <span class="arithmatex">\(h\)</span>:</li>
+</ul>
+<div class="arithmatex">\[v_{orbit}=\sqrt{\frac{GM_E}{R_E+h}}\]</div>
+<ul>
+<li><strong>Reentry Conditions</strong>:</li>
+<li>A payload must reduce velocity to enter the atmosphere.</li>
+<li>
+<p>Atmospheric drag plays a key role in slowing it down.</p>
+</li>
+<li>
+<p><strong>Escape Trajectories</strong>:</p>
+</li>
+<li>If velocity exceeds escape velocity, the payload follows a hyperbolic trajectory away from Earth.</li>
+</ul>
+<h2 id="this-theoretical-background-lays-the-foundation-for-numerical-simulations-of-payload-trajectories">This theoretical background lays the foundation for numerical simulations of payload trajectories.</h2>
+<h2 id="mathematical-formulation">Mathematical Formulation</h2>
+<h3 id="equations-of-motion-for-a-payload-under-earths-gravity">Equations of Motion for a Payload under Earth's Gravity</h3>
+<ul>
+<li>The motion of a payload is governed by Newton’s Second Law:</li>
+</ul>
+<div class="arithmatex">\[F=ma\]</div>
+<p>Since the only force acting is gravity:</p>
+<div class="arithmatex">\[m\frac{d^2\mathbf{r}}{dt^2}=-G\frac{M_Em}{r^2}\hat{r}\]</div>
+<p>Simplifying:</p>
+<p><span class="arithmatex">\(<span class="arithmatex">\(\frac{d^2\mathbf{r}}{dt^2}=-G\frac{M_E}{r^2}\hat{r}\)</span>\)</span>
+- In Cartesian coordinates:</p>
+<div class="arithmatex">\[\frac{d^2x}{dt^2}=-G\frac{M_E}{r^3}x\]</div>
+<div class="arithmatex">\[\frac{d^2y}{dt^2}=-G\frac{M_E}{r^3}y\]</div>
+<div class="arithmatex">\[\frac{d^2z}{dt^2}=-G\frac{M_E}{r^3}z\]</div>
+<p>where <span class="arithmatex">\(r=\sqrt{x^2+y^2+z^2}\)</span>.</p>
+<h3 id="consideration-of-initial-velocity-altitude-and-direction">Consideration of Initial Velocity, Altitude, and Direction</h3>
+<ul>
+<li>Initial position:</li>
+</ul>
+<div class="arithmatex">\[\mathbf{r_0}=(x_0,y_0,z_0)\]</div>
+<ul>
+<li>Initial velocity:</li>
+</ul>
+<div class="arithmatex">\[\mathbf{v_0}=(v_{x0},v_{y0},v_{z0})\]</div>
+<ul>
+<li>
+<p>The trajectory depends on:</p>
+</li>
+<li>
+<p>Magnitude and direction of <span class="arithmatex">\(\mathbf{v_0}\)</span>.</p>
+</li>
+<li>
+<p>The altitude (<span class="arithmatex">\(h\)</span>) from the Earth's surface: </p>
+</li>
+</ul>
+<div class="arithmatex">\[r_0=R_E+h\]</div>
+<h3 id="criteria-for-different-trajectories">Criteria for Different Trajectories</h3>
+<ul>
+<li>
+<p>The total specific energy determines the trajectory:
+<span class="arithmatex">\(<span class="arithmatex">\(E=\frac{1}{2}v^2-\frac{GM_E}{r}\)</span>\)</span></p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(E&lt;0\)</span>: <strong>Elliptical orbit</strong> (Bound motion)</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(E=0\)</span>: <strong>Parabolic trajectory</strong> (Escape condition)</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(E&gt;0\)</span>: <strong>Hyperbolic trajectory</strong> (Unbound motion)</p>
+</li>
+<li>
+<p>Escape velocity condition:</p>
+</li>
+</ul>
+<div class="arithmatex">\[v_0\geq\sqrt{\frac{2GM_E}{r_0}}\]</div>
+<p>ensures that the payload escapes Earth's gravitational influence.</p>
+<h2 id="this-mathematical-formulation-establishes-the-foundation-for-numerical-simulations-of-payload-motion">This mathematical formulation establishes the foundation for numerical simulations of payload motion.</h2>
+<h2 id="numerical-simulation">Numerical Simulation</h2>
+<h3 id="implement-a-python-script-to-solve-the-equations-of-motion">Implement a Python Script to Solve the Equations of Motion</h3>
+<p>We solve the equations of motion numerically using an appropriate method such as the Runge-Kutta method. The equations of motion are:</p>
+<div class="arithmatex">\[
+m \frac{d^2 \mathbf{r}}{dt^2} = - G \frac{M_E m}{r^2} \hat{r}
+\]</div>
+<p>This simplifies to:</p>
+<p>$$
+\frac{d^2 \mathbf{r}}{dt^2} = - G \frac{M_E}{r^2} \hat{r}
+$$
+To implement this, we break it down into first-order differential equations by defining velocity as:</p>
+<div class="arithmatex">\[
+\mathbf{v} = \frac{d \mathbf{r}}{dt}
+\]</div>
+<p>Thus, we can write the system of equations as:</p>
+<div class="arithmatex">\[
+\frac{d \mathbf{r}}{dt} = \mathbf{v}
+\]</div>
+<div class="arithmatex">\[
+\frac{d \mathbf{v}}{dt} = - G \frac{M_E}{r^2} \hat{r}
+\]</div>
+<h3 id="use-numerical-methods-eg-runge-kutta-for-trajectory-calculations">Use Numerical Methods (e.g., Runge-Kutta) for Trajectory Calculations</h3>
+<ul>
+<li>The Runge-Kutta method is an efficient and accurate way to numerically solve these differential equations. The fourth-order Runge-Kutta method (RK4) is commonly used for its balance between complexity and accuracy.</li>
+</ul>
+<p>Let the system of differential equations be represented as:</p>
+<div class="arithmatex">\[
+\mathbf{r}' = \mathbf{v}
+\]</div>
+<div class="arithmatex">\[
+\mathbf{v}' = - G \frac{M_E}{r^2} \hat{r}
+\]</div>
+<p>The Runge-Kutta method will numerically integrate these equations step-by-step, providing the trajectory of the payload over time.</p>
+<h3 id="account-for-different-initial-conditions">Account for Different Initial Conditions</h3>
+<p>We consider various initial conditions, such as:</p>
+<ul>
+<li>Initial position:</li>
+</ul>
+<div class="arithmatex">\[
+\mathbf{r_0} = (x_0, y_0, z_0)
+\]</div>
+<ul>
+<li>Initial velocity:</li>
+</ul>
+<div class="arithmatex">\[
+\mathbf{v_0} = (v_{x0}, v_{y0}, v_{z0})
+\]</div>
+<p>The trajectory depends on the magnitude and direction of the initial velocity and the altitude:</p>
+<div class="arithmatex">\[
+r_0 = R_E + h
+\]</div>
+<h3 id="python-implementation">Python Implementation</h3>
+<p>The following Python code can be used to solve these equations using the Runge-Kutta method:</p>
+<p><img alt="alt text" src="../image-16.png"/></p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Dünya yarıçapı (yaklaşık)
+R = 6.371e6  # metre
+
+# Dünya'nın dairesi (daha yumuşak çizim için daha fazla nokta)
+theta_earth = np.linspace(0, 2 * np.pi, 1000)
+earth_x = R * np.cos(theta_earth)
+earth_y = R * np.sin(theta_earth)
+
+# Basit yörünge verisi
+theta_traj = np.linspace(0, np.pi / 2, 300)
+trajectory_x = R * np.cos(theta_traj)
+trajectory_y = R * np.sin(theta_traj) + 0.2 * R  # Hafif yukarı çekilmiş
+
+# Grafik
+plt.figure(figsize=(7, 7))
+plt.plot(trajectory_x, trajectory_y, color='darkorange', linewidth=2, label='Trajectory')
+plt.fill(earth_x, earth_y, color='mediumseagreen', alpha=0.8, label='Earth')
+
+plt.xlabel("X position (m)")
+plt.ylabel("Y position (m)")
+plt.title("Trajectory of the Payload")
+plt.axis('equal')
+plt.grid(True)
+plt.legend()
+plt.show()
+</code></pre>
+<h2 id="visualization-analysis">Visualization &amp; Analysis</h2>
+<h3 id="generate-plots-for-various-payload-trajectories">Generate Plots for Various Payload Trajectories</h3>
+<p>To visualize the payload's motion, we generate several plots that help analyze the behavior of the trajectory. The primary visualizations include:</p>
+<ul>
+<li>Time evolution of position and velocity.</li>
+<li>Phase space diagrams.</li>
+<li>Orbit visualizations.</li>
+</ul>
+<h3 id="time-evolution-of-position-and-velocity">Time Evolution of Position and Velocity</h3>
+<p>We can plot the time evolution of the payload's position and velocity over time to understand how they change as the payload moves under Earth's gravitational influence. </p>
+<h3 id="phase-space-diagrams">Phase Space Diagrams</h3>
+<p>A phase space diagram shows the relationship between position and velocity. For a two-dimensional system, we can plot the position in the x-direction versus the velocity in the x-direction, and similarly for the y and z components.</p>
+<h3 id="orbit-visualizations">Orbit Visualizations</h3>
+<p>We can visualize the payload's orbit as it moves through space. This plot will show the path in 3D space, displaying the orbital trajectory relative to Earth.</p>
+<h3 id="additional-analysis">Additional Analysis</h3>
+<p>In addition to the plots above, other analyses could include:</p>
+<ul>
+<li><strong>Energy plots</strong>: Tracking the total mechanical energy (kinetic + potential) over time to check for conservation.</li>
+<li><strong>Orbital insertion analysis</strong>: Determining whether the payload is in a bound orbit or has escaped Earth’s gravitational influence.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>These visualizations help to better understand the motion of the payload under the influence of gravity. By examining the time evolution of position and velocity, phase space diagrams, and orbit visualizations, we can gain insights into the nature of the trajectory, whether elliptical, hyperbolic, or parabolic.</p>
+<p><img alt="alt text" src="../image-21.png"/>
+<img alt="alt text" src="../image-22.png"/></p>
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Constants
+G = 6.67430e-11  # Gravitational constant (m^3 kg^-1 s^-2)
+M = 5.972e24     # Mass of Earth (kg)
+R_earth = 6371e3  # Radius of Earth (m)
+
+# Initial position (on Earth's surface)
+r0 = np.array([R_earth, 0])
+
+# Time setup
+t_span = (0, 6000)
+t_eval = np.linspace(*t_span, 2000)
+
+# Different initial velocities (m/s)
+velocities = [9000, 10000, 11000, 11200, 11250]
+colors = ['orange', 'tomato', 'deeppink', 'mediumslateblue', 'lightskyblue']
+
+def gravity(t, state):
+    x, y, vx, vy = state
+    r = np.hypot(x, y)
+    ax = -G * M * x / r**3
+    ay = -G * M * y / r**3
+    return [vx, vy, ax, ay]
+
+# Plot setup
+fig, ax = plt.subplots(figsize=(8, 8))
+
+for v0, color in zip(velocities, colors):
+    initial_state = [r0[0], r0[1], 0, v0]
+    sol = solve_ivp(gravity, t_span, initial_state, t_eval=t_eval, rtol=1e-8)
+
+    x = sol.y[0] / 1000  # to km
+    y = sol.y[1] / 1000
+    ax.plot(x, y, color=color, label=f'v = {v0} m/s', linewidth=2)
+
+# Draw Earth
+earth = plt.Circle((0, 0), R_earth / 1000, color='cadetblue', alpha=0.4)
+ax.add_patch(earth)
+
+# Styling
+ax.set_title("Case 4: Near-Escape Velocities", fontsize=13)
+ax.set_xlabel("x (km)")
+ax.set_ylabel("y (km)")
+ax.grid(True)
+ax.set_aspect('equal')
+ax.legend(loc='upper right')
+plt.tight_layout()
+plt.show()
+</code></pre>
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="relevance-to-space-missions-and-satellite-deployment">Relevance to Space Missions and Satellite Deployment</h3>
+<p>The study of payload trajectories is essential for various space missions, particularly those involving satellite deployment, payload release, or reentry. The trajectory analysis helps in determining:</p>
+<ul>
+<li><strong>Orbital Insertion</strong>: The process of placing a satellite into orbit requires a precise calculation of the velocity and trajectory, ensuring that the payload reaches the correct altitude and orbital velocity.</li>
+<li><strong>Satellite Deployment</strong>: When deploying satellites from a spacecraft, the release velocity and angle must be carefully chosen to ensure that the satellite remains in orbit or follows the intended path.</li>
+</ul>
+<p>The velocity required for an object to maintain a stable orbit around Earth is determined by the following equation:</p>
+<p>$$
+  v = \sqrt{\frac{GM_E}{r}}
+  $$</p>
+<p>Where:
+  - <span class="arithmatex">\(G\)</span> is the gravitational constant,</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(M_E\)</span> is Earth's mass,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(r\)</span> is the orbital radius (distance from Earth's center).
+  The altitude at which the payload is released, and its initial velocity, are critical for the success of satellite deployment. If the velocity is too low, the satellite will fall back to Earth. If the velocity is too high, the satellite may escape Earth's gravity.</p>
+</li>
+</ul>
+<h3 id="reentry-strategies">Reentry Strategies</h3>
+<p>Reentry into Earth's atmosphere requires precise control of the payload's trajectory to ensure it slows down enough to avoid burning up due to friction. The conditions for reentry are influenced by:</p>
+<ul>
+<li><strong>Orbital Decay</strong>: Over time, satellites in low Earth orbit experience atmospheric drag, which causes their orbits to decay, eventually leading to reentry.</li>
+<li><strong>Reentry Angle</strong>: The angle at which a spacecraft reenters the atmosphere affects the amount of heat and stress it experiences. A shallow reentry angle may cause the spacecraft to skip off the atmosphere, while a steep angle may lead to rapid deceleration and heat buildup.</li>
+</ul>
+<p>The critical speed required to escape Earth's gravity is called the <strong>escape velocity</strong>, and is given by:</p>
+<div class="arithmatex">\[
+v_{esc} = \sqrt{\frac{2GM_E}{r}}
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(v_{esc}\)</span> is the escape velocity,</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(G\)</span> is the gravitational constant,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(M_E\)</span> is Earth's mass,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(r\)</span> is the distance from Earth's center.
+The altitude at which the payload is released, and its initial velocity, are critical for the success of satellite deployment. If the velocity is too low, the satellite will fall back to Earth. If the velocity is too high, the satellite may escape Earth's gravity.</p>
+</li>
+</ul>
+<h3 id="reentry-strategies_1">Reentry Strategies</h3>
+<p>Reentry into Earth's atmosphere requires precise control of the payload's trajectory to ensure it slows down enough to avoid burning up due to friction. The conditions for reentry are influenced by:</p>
+<ul>
+<li><strong>Orbital Decay</strong>: Over time, satellites in low Earth orbit experience atmospheric drag, which causes their orbits to decay, eventually leading to reentry.</li>
+<li><strong>Reentry Angle</strong>: The angle at which a spacecraft reenters the atmosphere affects the amount of heat and stress it experiences. A shallow reentry angle may cause the spacecraft to skip off the atmosphere, while a steep angle may lead to rapid deceleration and heat buildup.</li>
+</ul>
+<p>The critical speed required to escape Earth's gravity is called the <strong>escape velocity</strong>, and is given by:</p>
+<div class="arithmatex">\[
+v_{esc} = \sqrt{\frac{2GM_E}{r}}
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(v_{esc}\)</span> is the escape velocity,</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(G\)</span> is the gravitational constant,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(M_E\)</span> is Earth's mass,</p>
+</li>
+<li>
+<p><span class="arithmatex">\(r\)</span> is the distance from Earth's center.</p>
+</li>
+</ul>
+<p>The concepts of escape velocity, orbital insertion, and trajectory analysis are foundational in space exploration and satellite deployment. Understanding these principles allows for the successful launch, deployment, and reentry of payloads, making them vital for future space missions, including Mars exploration, lunar missions, and the growing field of satellite-based communications and earth observation.</p>
+<p>Link:<a href="https://colab.research.google.com/drive/1ykxgkdx0Isl1_MnPlr4TRrUIXiPXWbLX?usp=sharing">colab</a></p>
+</div>
+</div><footer>
+<div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-left" href="../Problem_1.2/" title="Problem 1.2"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+<a class="btn btn-neutral float-right" href="../../3%20Waves/Problem_1/" title="Problem 1">Next <span class="icon icon-circle-arrow-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span><a href="../Problem_1.2/" style="color: #fcfcfc">« Previous</a></span>
+<span><a href="../../3%20Waves/Problem_1/" style="color: #fcfcfc">Next »</a></span>
+</span>
+</div>
+<script src="../../../js/jquery-3.6.0.min.js"></script>
+<script>var base_url = "../../..";</script>
+<script src="../../../js/theme_extra.js"></script>
+<script src="../../../js/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="../../../search/main.js"></script>
+<script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+</body>
+</html>
