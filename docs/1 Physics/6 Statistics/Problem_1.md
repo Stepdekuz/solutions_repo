@@ -375,6 +375,7 @@ plt.show()
 ![alt text](image-3.png)
 
 ```python
+
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -417,4 +418,5 @@ for row_idx, (dist_name, population) in enumerate(populations.items()):
 plt.suptitle("Exploring Effects of Population Shape, Sample Size, and Variance on Sampling Distribution", fontsize=18)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 plt.show()
+
  ```
