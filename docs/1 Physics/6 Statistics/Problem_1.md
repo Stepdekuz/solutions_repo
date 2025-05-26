@@ -374,7 +374,7 @@ plt.show()
 
 ![alt text](image-3.png)
 
-```python
+``` python
 
 import numpy as np
 import matplotlib.pyplot as plt
