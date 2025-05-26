@@ -227,11 +227,10 @@ G3.add_edge('D', 'E', resistance=1)
 result3 = "Equivalent Resistance: Simplifies to ≈ 5.09Ω (via step-by-step reduction)"
 draw_circuit_with_result(G3, "Example 3: Nested Circuit", result3)
 ```
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-
+![alt text](image-8.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
+![alt text](image-11.png)
 ## Conclusion
 
 This implementation:
@@ -246,84 +245,49 @@ This satisfies all the requirements for a complete and functional graph-theoreti
 ```python
 import networkx as nx
 import matplotlib.pyplot as plt
-import copy
 
-# Grafik çizim fonksiyonu
-def draw_step(G, step_title, pos=None):
-    if pos is None:
-        pos = nx.spring_layout(G, seed=42)
-    edge_labels = {(u, v): f"{d['resistance']}Ω" for u, v, d in G.edges(data=True)}
-    plt.figure(figsize=(6, 4))
-    nx.draw(G, pos, with_labels=True, node_size=700, node_color="lightblue", font_size=14)
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
-    plt.title(step_title)
-    plt.axis("off")
+# Original Circuit
+G = nx.Graph()
+G.add_edge('A', 'B', weight=20)
+G.add_edge('B', 'C', weight=20)
+G.add_edge('B', 'D', weight=60)
+G.add_edge('C', 'D', weight=40)
+G.add_edge('D', 'E', weight=10)
+
+pos = nx.spring_layout(G, seed=42)
+
+def plot_graph(G, step):
+    plt.figure(figsize=(8,6))
+    labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw(
+        G, pos, with_labels=True, node_size=1000, 
+        node_color="lightcoral", font_weight="bold", font_size=12
+    )
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+    plt.title(f"Step {step}: Circuit Diagram", fontsize=14, fontweight='bold')
     plt.show()
 
-# Seri indirgeme
-def series_reduce_steps(G, start, end, pos):
-    steps = []
-    changed = True
-    while changed:
-        changed = False
-        for node in list(G.nodes):
-            if node in [start, end]:
-                continue
-            if G.degree[node] == 2:  # ← Bu satır düzeltildi
-                neighbors = list(G.neighbors(node))
-                if G.has_edge(neighbors[0], node) and G.has_edge(node, neighbors[1]):
-                    R1 = G[neighbors[0]][node]['resistance']
-                    R2 = G[node][neighbors[1]]['resistance']
-                    R_new = R1 + R2
-                    G.add_edge(neighbors[0], neighbors[1], resistance=R_new)
-                    G.remove_node(node)
-                    changed = True
-                    steps.append(copy.deepcopy(G))
-                    break
-    return steps
+# Step 0: Original Circuit
+plot_graph(G, "0 (Original)")
 
-# Paralel indirgeme
-def parallel_reduce_steps(G, pos):
-    steps = []
-    seen = set()
-    for u, v in list(G.edges()):
-        if (u, v) in seen or (v, u) in seen:
-            continue
-        parallels = [(x, y) for x, y in G.edges()
-                     if (x == u and y == v) or (x == v and y == u)]
-        if len(parallels) > 1:
-            resistances = [G[x][y]['resistance'] for x, y in parallels]
-            R_eq = 1 / sum(1/r for r in resistances)
-            G.remove_edges_from(parallels)
-            G.add_edge(u, v, resistance=R_eq)
-            steps.append(copy.deepcopy(G))
-        seen.add((u, v))
-    return steps
-# 🔹 Örnek 3: Nested Circuit
-G_nested = nx.Graph()
-G_nested.add_edge('A', 'B', resistance=2)
-G_nested.add_edge('B', 'C', resistance=2)
-G_nested.add_edge('C', 'D', resistance=4)
-G_nested.add_edge('B', 'D', resistance=4)
-G_nested.add_edge('D', 'E', resistance=1)
-pos_nested = nx.spring_layout(G_nested, seed=42)
+# Step 1: Combine B-C and C-D into B-D with resistance 60
+G1 = nx.Graph()
+G1.add_edge('A', 'B', weight=20)
+G1.add_edge('B', 'D', weight=60)  # 20 + 40 = 60 Ohm
+G1.add_edge('D', 'E', weight=10)
+plot_graph(G1, "1 (After Series Reduction)")
 
-# Adım adım sadeleştirme
-draw_step(G_nested, "Step 0: Original Nested Circuit", pos_nested)
-series_steps = series_reduce_steps(G_nested, 'A', 'E', pos_nested)
-for i, step in enumerate(series_steps):
-    draw_step(step, f"Step {i+1}: After Series Reduction", pos_nested)
+# Step 2: Combine A-B and B-D into A-D with resistance 80
+G2 = nx.Graph()
+G2.add_edge('A', 'D', weight=80)  # 20 + 60 = 80 Ohm
+G2.add_edge('D', 'E', weight=10)
+plot_graph(G2, "2 (After Series Reduction)")
 
-parallel_steps = parallel_reduce_steps(G_nested, pos_nested)
-for i, step in enumerate(parallel_steps):
-    draw_step(step, f"Step {len(series_steps)+i+1}: After Parallel Reduction", pos_nested)
+# Step 3: Combine A-D and D-E into A-E with resistance 90
+G3 = nx.Graph()
+G3.add_edge('A', 'E', weight=90)  # 80 + 10 = 90 Ohm
+plot_graph(G3, "3 (After Series Reduction)")
 ```
-
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-
 ### Final Equivalent Resistance:
 9.0000 Ω between nodes A and E
 
