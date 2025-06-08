@@ -215,14 +215,16 @@
 <ul>
 <li>Identify a node with degree 2 (not start or end)</li>
 <li>Replace its two edges with a single edge</li>
-<li>New resistance:
+<li>
+<p>New resistance:
   $$
   R_{new} = R_1 + R_2
-  $$</li>
-</ul>
-<h3 id="step-3-parallel-reduction">Step 3: Parallel Reduction</h3>
-<ul>
-<li>Identify multiple edges between the same pair of nodes</li>
+  $$
+  ### Step 3: Parallel Reduction</p>
+</li>
+<li>
+<p>Identify multiple edges between the same pair of nodes</p>
+</li>
 <li>Replace them with a single edge</li>
 <li>New resistance:
   $$
@@ -249,81 +251,9 @@
 </code></pre>
 <hr/>
 <h2 id="python-implementation-using-networkx">Python Implementation (Using <code>networkx</code>)</h2>
-<pre><code class="language-python">import networkx as nx
-
-def series_reduce(G, start, end):
-    changed = True
-    while changed:
-        changed = False
-        for node in list(G.nodes):
-            if node in [start, end]:
-                continue
-            if G.degree[node] == 2:
-                neighbors = list(G.neighbors(node))
-                if G.has_edge(neighbors[0], node) and G.has_edge(node, neighbors[1]):
-                    R1 = G[neighbors[0]][node]['resistance']
-                    R2 = G[node][neighbors[1]]['resistance']
-                    R_new = R1 + R2
-                    G.add_edge(neighbors[0], neighbors[1], resistance=R_new)
-                    G.remove_node(node)
-                    changed = True
-                    break
-def parallel_reduce(G):
-    seen = set()
-    for u, v in list(G.edges()):
-        if (u, v) in seen or (v, u) in seen:
-            continue
-        parallels = [(x, y) for x, y in G.edges()
-                     if (x == u and y == v) or (x == v and y == u)]
-        if len(parallels) &gt; 1:
-            resistances = [G[x][y]['resistance'] for x, y in parallels]
-            R_eq = 1 / sum(1/r for r in resistances)
-            G.remove_edges_from(parallels)
-            G.add_edge(u, v, resistance=R_eq)
-        seen.add((u, v))
-
-def compute_equivalent_resistance(G, start, end):
-    while len(G.nodes) &gt; 2 or G.number_of_edges() &gt; 1:
-        series_reduce(G, start, end)
-        parallel_reduce(G)
-    return G[start][end]['resistance']
-</code></pre>
-<hr/>
-<h2 id="example-1-simple-series">Example 1: Simple Series</h2>
-<pre><code class="language-python">G = nx.Graph()
-G.add_edge('A', 'B', resistance=5)
-G.add_edge('B', 'C', resistance=10)
-print(compute_equivalent_resistance(G, 'A', 'C'))  # Output: 15
-</code></pre>
-<p><strong>Explanation:</strong> Two resistors in series (5Ω and 10Ω) are reduced to one 15Ω resistor.</p>
-<hr/>
-<h2 id="example-2-simple-parallel">Example 2: Simple Parallel</h2>
-<pre><code class="language-python">G = nx.Graph()
-G.add_edge('A', 'B', resistance=10)
-G.add_edge('A', 'B', resistance=20)
-print(compute_equivalent_resistance(G, 'A', 'B'))  # Output: 6.666...
-</code></pre>
-<p><strong>Explanation:</strong> Two resistors in parallel (10Ω and 20Ω) are combined:
-$$
-R_{eq} = \left(\frac{1}{10} + \frac{1}{20}\right)^{-1} = \frac{20}{3} \approx 6.67 \Omega
-$$</p>
-<hr/>
-<h2 id="example-3-nested-circuit">Example 3: Nested Circuit</h2>
-<pre><code class="language-python">G = nx.Graph()
-G.add_edge('A', 'B', resistance=2)
-G.add_edge('B', 'C', resistance=2)
-G.add_edge('C', 'D', resistance=4)
-G.add_edge('B', 'D', resistance=4)
-G.add_edge('D', 'E', resistance=1)
-print(compute_equivalent_resistance(G, 'A', 'E'))  # Complex but should resolve correctly
-</code></pre>
-<p><strong>Explanation:</strong>
-- First, series resistors A–B–C (2Ω + 2Ω) are handled.
-- Then, parallel path C–D and B–D are merged.
-- Final path D–E (1Ω) is added.
-- The algorithm handles nested series-parallel combinations step by step.</p>
-<hr/>
-<h2 id="circuit-diagrams-with-results">Circuit Diagrams with Results</h2>
+<p><img alt="alt text" src="../image-12.png"/>
+<img alt="alt text" src="../image-13.png"/>
+<img alt="alt text" src="../image-14.png"/></p>
 <pre><code class="language-python">import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -339,17 +269,18 @@ def draw_circuit_with_result(G, title, result_text, is_multigraph=False):
                 edge_labels[(u, v)] += f", {label}"
             else:
                 edge_labels[(u, v)] = label
-        nx.draw(G, pos, with_labels=True, node_size=700, node_color="lightblue", font_size=14)
+        nx.draw(G, pos, with_labels=True, node_size=700, node_color="red", font_size=14)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
     else:
         edge_labels = {(u, v): f"{d['resistance']}Ω" for u, v, d in G.edges(data=True)}
-        nx.draw(G, pos, with_labels=True, node_size=700, node_color="lightblue", font_size=14)
+        nx.draw(G, pos, with_labels=True, node_size=700, node_color="red", font_size=14)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
 
     plt.title(title + "\n" + result_text, fontsize=14)
     plt.axis('off')
     plt.show()
-    G1 = nx.Graph()
+
+G1 = nx.Graph()
 G1.add_edge('A', 'B', resistance=5)
 G1.add_edge('B', 'C', resistance=10)
 result1 = "Equivalent Resistance: 5Ω + 10Ω = 15Ω"
@@ -371,10 +302,7 @@ G3.add_edge('D', 'E', resistance=1)
 result3 = "Equivalent Resistance: Simplifies to ≈ 5.09Ω (via step-by-step reduction)"
 draw_circuit_with_result(G3, "Example 3: Nested Circuit", result3)
 </code></pre>
-<p><img alt="alt text" src="../image-8.png"/>
-<img alt="alt text" src="../image-9.png"/>
-<img alt="alt text" src="../image-10.png"/>
-<img alt="alt text" src="../image-11.png"/></p>
+<hr/>
 <h2 id="conclusion">Conclusion</h2>
 <p>This implementation:
 - ✅ Accepts a <code>networkx</code> graph as input.
@@ -385,49 +313,83 @@ draw_circuit_with_result(G3, "Example 3: Nested Circuit", result3)
 <hr/>
 <pre><code class="language-python">import networkx as nx
 import matplotlib.pyplot as plt
+import copy
 
-# Original Circuit
-G = nx.Graph()
-G.add_edge('A', 'B', weight=20)
-G.add_edge('B', 'C', weight=20)
-G.add_edge('B', 'D', weight=60)
-G.add_edge('C', 'D', weight=40)
-G.add_edge('D', 'E', weight=10)
-
-pos = nx.spring_layout(G, seed=42)
-
-def plot_graph(G, step):
-    plt.figure(figsize=(8,6))
-    labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw(
-        G, pos, with_labels=True, node_size=1000, 
-        node_color="lightcoral", font_weight="bold", font_size=12
-    )
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
-    plt.title(f"Step {step}: Circuit Diagram", fontsize=14, fontweight='bold')
+# Drawing function
+def draw_step(G, step_title, pos=None):
+    if pos is None:
+        pos = nx.spring_layout(G, seed=42)
+    edge_labels = {(u, v): f"{d['resistance']}Ω" for u, v, d in G.edges(data=True)}
+    plt.figure(figsize=(6, 4))
+    nx.draw(G, pos, with_labels=True, node_size=700, node_color="#ff0000", font_size=14)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=12)
+    plt.title(step_title)
+    plt.axis("off")
     plt.show()
 
-# Step 0: Original Circuit
-plot_graph(G, "0 (Original)")
+# Series reduction
+def series_reduce_steps(G, start, end, pos):
+    steps = []
+    changed = True
+    while changed:
+        changed = False
+        for node in list(G.nodes):
+            if node in [start, end]:
+                continue
+            if G.degree[node] == 2:
+                neighbors = list(G.neighbors(node))
+                if G.has_edge(neighbors[0], node) and G.has_edge(node, neighbors[1]):
+                    R1 = G[neighbors[0]][node]['resistance']
+                    R2 = G[node][neighbors[1]]['resistance']
+                    R_new = R1 + R2
+                    G.add_edge(neighbors[0], neighbors[1], resistance=R_new)
+                    G.remove_node(node)
+                    changed = True
+                    steps.append(copy.deepcopy(G))
+                    break
+    return steps
 
-# Step 1: Combine B-C and C-D into B-D with resistance 60
-G1 = nx.Graph()
-G1.add_edge('A', 'B', weight=20)
-G1.add_edge('B', 'D', weight=60)  # 20 + 40 = 60 Ohm
-G1.add_edge('D', 'E', weight=10)
-plot_graph(G1, "1 (After Series Reduction)")
+# Parallel reduction
+def parallel_reduce_steps(G, pos):
+    steps = []
+    seen = set()
+    for u, v in list(G.edges()):
+        if (u, v) in seen or (v, u) in seen:
+            continue
+        parallels = [(x, y) for x, y in G.edges()
+                     if (x == u and y == v) or (x == v and y == u)]
+        if len(parallels) &gt; 1:
+            resistances = [G[x][y]['resistance'] for x, y in parallels]
+            R_eq = 1 / sum(1/r for r in resistances)
+            G.remove_edges_from(parallels)
+            G.add_edge(u, v, resistance=R_eq)
+            steps.append(copy.deepcopy(G))
+        seen.add((u, v))
+    return steps
 
-# Step 2: Combine A-B and B-D into A-D with resistance 80
-G2 = nx.Graph()
-G2.add_edge('A', 'D', weight=80)  # 20 + 60 = 80 Ohm
-G2.add_edge('D', 'E', weight=10)
-plot_graph(G2, "2 (After Series Reduction)")
+# Example: Nested Circuit
+G_nested = nx.Graph()
+G_nested.add_edge('A', 'B', resistance=2)
+G_nested.add_edge('B', 'C', resistance=2)
+G_nested.add_edge('C', 'D', resistance=4)
+G_nested.add_edge('B', 'D', resistance=4)
+G_nested.add_edge('D', 'E', resistance=1)
+pos_nested = nx.spring_layout(G_nested, seed=42)
 
-# Step 3: Combine A-D and D-E into A-E with resistance 90
-G3 = nx.Graph()
-G3.add_edge('A', 'E', weight=90)  # 80 + 10 = 90 Ohm
-plot_graph(G3, "3 (After Series Reduction)")
+# Step-by-step simplification
+draw_step(G_nested, "Step 0: Original Nested Circuit", pos_nested)
+series_steps = series_reduce_steps(G_nested, 'A', 'E', pos_nested)
+for i, step in enumerate(series_steps):
+    draw_step(step, f"Step {i+1}: After Series Reduction", pos_nested)
+
+parallel_steps = parallel_reduce_steps(G_nested, pos_nested)
+for i, step in enumerate(parallel_steps):
+    draw_step(step, f"Step {len(series_steps)+i+1}: After Parallel Reduction", pos_nested)
 </code></pre>
+<p><img alt="alt text" src="../image-15.png"/>
+<img alt="alt text" src="../image-16.png"/>
+<img alt="alt text" src="../image-17.png"/>
+<img alt="alt text" src="../image-18.png"/></p>
 <h3 id="final-equivalent-resistance">Final Equivalent Resistance:</h3>
 <p>9.0000 Ω between nodes A and E</p>
 <hr/>
@@ -448,10 +410,10 @@ plot_graph(G3, "3 (After Series Reduction)")
 <li><strong>Applies series reduction</strong>:</li>
 <li>Detects nodes with degree 2 (one-in, one-out)</li>
 <li>
-<p>Merges them into a single resistor:</p>
-<p>$$
- R_{\text{eq}} = R_1 + R_2
- $$</p>
+<p>Merges them into a single resistor:
+ $$
+     R_{\text{eq}} = R_1 + R_2
+     $$</p>
 </li>
 <li>
 <p>Draws the updated circuit after each reduction</p>
@@ -461,7 +423,7 @@ plot_graph(G3, "3 (After Series Reduction)")
 <li>
 <p>Combines them using the formula:</p>
 <p>$$
-  \frac{1}{R_{\text{eq}}} = \sum_i \frac{1}{R_i}
+ \frac{1}{R_{\text{eq}}} = \sum_i \frac{1}{R_i}
  $$</p>
 </li>
 <li>
